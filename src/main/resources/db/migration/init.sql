@@ -1,4 +1,4 @@
-CREATE DATABASE cambay
+CREATE DATABASE IF NOT EXISTS cambay
     WITH
     OWNER = postgres
     ENCODING = 'UTF8'
