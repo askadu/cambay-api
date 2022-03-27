@@ -16,7 +16,7 @@ public class UserConverter {
         return userModel;
     }
 
-    public static  User toEntity(UserModel userModel) {
+    public static User toEntity(UserModel userModel) {
         User user = new User();
         user.setId(userModel.getId());
         user.setName(userModel.getName());

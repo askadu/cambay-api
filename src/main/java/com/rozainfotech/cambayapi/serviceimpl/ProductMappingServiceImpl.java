@@ -1,6 +1,5 @@
 package com.rozainfotech.cambayapi.serviceimpl;
 
-import com.rozainfotech.cambayapi.controller.ProductMappingController;
 import com.rozainfotech.cambayapi.converter.ProductConverter;
 import com.rozainfotech.cambayapi.converter.ProductMappingConverter;
 import com.rozainfotech.cambayapi.entities.Product;
@@ -52,7 +51,7 @@ public class ProductMappingServiceImpl implements ProductMappingService {
         productRepository.save(product);
         ProductMapping productMapping = ProductMappingConverter.toEntity(productMappingModel);
         productMapping.setProductId(product.getId());
-        productMapping.setOrganizationId(2);
+        productMapping.setOrganizationId(productMappingModel.getOrganizationId());
         productMappingRepository.save(productMapping);
 
         ProductMappingModel response = ProductMappingConverter.toModel(productMapping, product);

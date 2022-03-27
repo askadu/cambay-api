@@ -2,8 +2,6 @@ package com.rozainfotech.cambayapi.models;
 
 import lombok.Data;
 
-import java.util.Set;
-
 @Data
 public class OrganizationModel {
 

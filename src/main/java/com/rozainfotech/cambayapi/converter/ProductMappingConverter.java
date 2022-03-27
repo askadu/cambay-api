@@ -3,7 +3,6 @@ package com.rozainfotech.cambayapi.converter;
 import com.rozainfotech.cambayapi.entities.Product;
 import com.rozainfotech.cambayapi.entities.ProductMapping;
 import com.rozainfotech.cambayapi.models.ProductMappingModel;
-import com.rozainfotech.cambayapi.models.ProductModel;
 
 import java.util.ArrayList;
 import java.util.List;

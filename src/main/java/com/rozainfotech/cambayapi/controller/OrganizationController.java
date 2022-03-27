@@ -42,10 +42,11 @@ public class OrganizationController {
 
     @PostMapping("/organization")
     public Object saveOrganization(@RequestBody Organization orgRequest) {
-        Organization organization =  organizationRepository.save(orgRequest);
+        Organization organization = organizationRepository.save(orgRequest);
         Role role = new Role(null, RoleEnum.ADMIN);
         role = roleRepository.save(role);
-        User user = new User(null, orgRequest.getName(), orgRequest.getEmail(), passwordEncoder.encode("test"), role.getId(), organization.getId());
+        User user = new User(null, orgRequest.getName(), orgRequest.getEmail(), passwordEncoder.encode("test"),
+                role.getId(), organization.getId());
         user = userRepository.save(user);
         return OrganizationConverter.toModel(organization);
     }
@@ -57,8 +58,8 @@ public class OrganizationController {
 
     @GetMapping("/organization/{orgId}")
     public Object getOrg(@PathVariable("orgId") Integer orgId) {
-        Optional<Organization> organization  = organizationRepository.findById(orgId);
-        if(organization.isPresent()) {
+        Optional<Organization> organization = organizationRepository.findById(orgId);
+        if (organization.isPresent()) {
             return OrganizationConverter.toModel(organization.get());
         } else {
             return new FailureModel("organization not found.");

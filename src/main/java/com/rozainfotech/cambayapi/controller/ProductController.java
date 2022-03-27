@@ -39,7 +39,7 @@ public class ProductController {
     @GetMapping("/product/{id}")
     public Object getProduct(@PathVariable("id") Integer id) {
         Optional<Product> product = productRepository.findById(id);
-        if(product.isPresent()) {
+        if (product.isPresent()) {
             return ProductConverter.toModel(product.get());
         } else {
             return new FailureModel("product not found.");

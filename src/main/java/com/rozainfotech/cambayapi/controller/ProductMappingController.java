@@ -1,11 +1,7 @@
 package com.rozainfotech.cambayapi.controller;
 
-import com.rozainfotech.cambayapi.converter.ProductMappingConverter;
-import com.rozainfotech.cambayapi.entities.Product;
-import com.rozainfotech.cambayapi.entities.ProductMapping;
+import com.rozainfotech.cambayapi.models.CambayUser;
 import com.rozainfotech.cambayapi.models.ProductMappingModel;
-import com.rozainfotech.cambayapi.repositories.ProductMappingRepository;
-import com.rozainfotech.cambayapi.repositories.ProductRepository;
 import com.rozainfotech.cambayapi.service.ProductMappingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,12 +22,15 @@ public class ProductMappingController {
     }
 
     @GetMapping("/product")
-    public List<ProductMappingModel> getAllProducts() {
-        return productMappingService.getProductsByOrgId(2);
+    public List<ProductMappingModel> getAllProducts(@RequestAttribute CambayUser cambayUser) {
+        LOGGER.debug("Organization id: {}", cambayUser.getOrgId());
+        return productMappingService.getProductsByOrgId(cambayUser.getOrgId());
     }
 
     @PostMapping("/product")
-    public ProductMappingModel saveProductMapping(@RequestBody ProductMappingModel productMappingModel) {
+    public ProductMappingModel saveProductMapping(@RequestBody ProductMappingModel productMappingModel,
+                                                  @RequestAttribute CambayUser cambayUser) {
+        productMappingModel.setOrganizationId(cambayUser.getOrgId());
         return productMappingService.addProductMapping(productMappingModel);
     }
 }

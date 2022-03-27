@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 public interface ProductMappingService {
-    public List<ProductMappingModel> getProductsByOrgId(Integer orgId);
-    public ProductMappingModel addProductMapping(ProductMappingModel productMappingModel);
+    List<ProductMappingModel> getProductsByOrgId(Integer orgId);
+    ProductMappingModel addProductMapping(ProductMappingModel productMappingModel);
 }
