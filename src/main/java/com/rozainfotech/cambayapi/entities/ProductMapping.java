@@ -25,11 +25,9 @@ public class ProductMapping {
     @Column(name = "status")
     private Boolean active;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @Column(name = "product_id")
+    private Integer productId;
+    @Column(name = "organization_id")
+    private Integer organizationId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "organization_id")
-    private Organization organization;
 }

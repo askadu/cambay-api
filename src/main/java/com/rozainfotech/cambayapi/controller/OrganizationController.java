@@ -1,12 +1,16 @@
 package com.rozainfotech.cambayapi.controller;
 
+import com.rozainfotech.cambayapi.converter.OrganizationConverter;
 import com.rozainfotech.cambayapi.entities.Organization;
 import com.rozainfotech.cambayapi.entities.Role;
 import com.rozainfotech.cambayapi.entities.User;
 import com.rozainfotech.cambayapi.enumerator.RoleEnum;
+import com.rozainfotech.cambayapi.models.FailureModel;
 import com.rozainfotech.cambayapi.repositories.OrganizationRepository;
 import com.rozainfotech.cambayapi.repositories.RoleRepository;
 import com.rozainfotech.cambayapi.repositories.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +21,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api")
 public class OrganizationController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrganizationController.class);
 
     private OrganizationRepository organizationRepository;
     private UserRepository userRepository;
@@ -35,14 +41,13 @@ public class OrganizationController {
     }
 
     @PostMapping("/organization")
-    public Object getOrg(@RequestBody Organization orgRequest) {
+    public Object saveOrganization(@RequestBody Organization orgRequest) {
         Organization organization =  organizationRepository.save(orgRequest);
-
         Role role = new Role(null, RoleEnum.ADMIN);
         role = roleRepository.save(role);
-        User user = new User(null, orgRequest.getName(), orgRequest.getEmail(), passwordEncoder.encode("test"), role, organization);
+        User user = new User(null, orgRequest.getName(), orgRequest.getEmail(), passwordEncoder.encode("test"), role.getId(), organization.getId());
         user = userRepository.save(user);
-        return organization;
+        return OrganizationConverter.toModel(organization);
     }
 
     @GetMapping("/organization")
@@ -54,9 +59,9 @@ public class OrganizationController {
     public Object getOrg(@PathVariable("orgId") Integer orgId) {
         Optional<Organization> organization  = organizationRepository.findById(orgId);
         if(organization.isPresent()) {
-            return organization.get();
+            return OrganizationConverter.toModel(organization.get());
         } else {
-            return "organization not found";
+            return new FailureModel("organization not found.");
         }
     }
 }

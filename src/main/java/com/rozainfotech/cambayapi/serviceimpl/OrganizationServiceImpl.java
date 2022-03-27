@@ -32,18 +32,17 @@ public class OrganizationServiceImpl implements OrganizationService {
         Optional<Organization> organization = organizationRepository.findById(id);
         if(organization.isPresent()) {
             Organization org = organization.get();
-            Set<ProductMapping> productMappings = org.getProductMappings();
-            Set<User> users = org.getUsers();
+//            Set<ProductMapping> productMappings = org.getProductMappings();
             OrganizationModel orgModel = new OrganizationModel();
             orgModel.setId(org.getId());
             orgModel.setName(org.getName());
             orgModel.setEmail(org.getEmail());
             Set<ProductMappingModel> productMappingModels = new HashSet<>();
-            for (ProductMapping productMapping : productMappings) {
-                productMappingModels.add(new ProductMappingModel(productMapping.getOrganization().getId(), null));
-            }
+//            for (ProductMapping productMapping : productMappings) {
+//                productMappingModels.add(new ProductMappingModel(productMapping.getOrganization().getId(), null));
+//            }
 
-            orgModel.setProductMappingModels(productMappingModels);
+//            orgModel.setProductMappingModels(productMappingModels);
             return orgModel;
         } else {
             throw new Exception("organization id doesn't exist");

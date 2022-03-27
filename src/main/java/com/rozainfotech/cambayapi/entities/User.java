@@ -21,11 +21,6 @@ public class User {
     @JsonIgnore
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id")
-    private Role role;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "organization_id", nullable = false)
-    private Organization organization;
+    private Integer roleId;
+    private Integer organizationId;
 }

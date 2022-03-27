@@ -41,13 +41,13 @@ public class OrganizationRepositoryTest {
 
     @Test
     public void shouldSaveEntity() {
-        Organization organization = organizationRepository.save(new Organization(null, "RozaInfotech", "contact@rozainfotech.com", "https://rozainfotech.com", "+91 900 900 9000", Boolean.FALSE, null, null));
+        Organization organization = organizationRepository.save(new Organization(null, "RozaInfotech", "contact@rozainfotech.com", "https://rozainfotech.com", "+91 900 900 9000", Boolean.FALSE));
         Set<Organization> organizations = new HashSet<>();
         organizations.add(organization);
-        Product product = new Product(null, "Concur", null);
+        Product product = new Product(null, "Concur");
         product = productRepository.save(product);
         Role role = new Role(RoleEnum.USER.roleId, RoleEnum.USER);
-        User user = new User(null, organization.getName(), organization.getEmail(), passwordEncoder.encode("test"), role, organization);
+        User user = new User(null, organization.getName(), organization.getEmail(), passwordEncoder.encode("test"), role.getId(), organization.getId());
         userRepository.save(user);
         Assert.assertNotNull(organization.getId());
     }
@@ -55,21 +55,12 @@ public class OrganizationRepositoryTest {
     @Test
     public void shouldSaveProductMapping() {
 
-        Optional<Organization> organization = organizationRepository.findById(2);
+        Optional<Organization> organization = organizationRepository.findById(3);
         Optional<Product> product = productRepository.findById(2);
         if(organization.isPresent() && product.isPresent()) {
             Organization org = organization.get();
-            ProductMapping productMapping = new ProductMapping(null, 24, LocalDate.now(), Boolean.TRUE, product.get(), org);
+            ProductMapping productMapping = new ProductMapping(null, 24, LocalDate.now(), Boolean.TRUE, product.get().getId(), org.getId());
             productMappingRepository.save(productMapping);
-        }
-    }
-
-    @Test
-    public void shouldGetOrganization() {
-        Optional<Organization> organization = organizationRepository.findById(2);
-        if(organization.isPresent()) {
-            Organization org = organization.get();
-            Set<ProductMapping> productMappings = org.getProductMappings();
         }
     }
 }

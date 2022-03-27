@@ -24,10 +24,4 @@ public class Organization extends BaseEntity {
     private String website;
     private String phoneNo;
     private Boolean active;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "organization")
-    private Set<User> users;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "organization")
-    private Set<ProductMapping> productMappings;
 }

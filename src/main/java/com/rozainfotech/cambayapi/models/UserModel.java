@@ -1,22 +1,19 @@
-package com.rozainfotech.cambayapi.entities;
+package com.rozainfotech.cambayapi.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
-
 @Data
 @AllArgsConstructor
-@Entity
 @NoArgsConstructor
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UserModel {
     private Integer id;
     private String name;
+    private String email;
+    @JsonIgnore
+    private String password;
+    private Integer roleId;
+    private Integer organizationId;
 }
