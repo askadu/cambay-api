@@ -16,6 +16,7 @@ public class ProductMappingConverter {
         productMappingModel.setActive(productMapping.getActive());
         productMappingModel.setExpiryDate(productMapping.getExpiryDate());
         productMappingModel.setNoOfUsers(productMapping.getNoOfUsers());
+        productMappingModel.setOrganizationId(productMapping.getOrganizationId());
         return productMappingModel;
     }
 
@@ -26,6 +27,7 @@ public class ProductMappingConverter {
         productMapping.setActive(productMappingModel.getActive());
         productMapping.setExpiryDate(productMappingModel.getExpiryDate());
         productMapping.setNoOfUsers(productMappingModel.getNoOfUsers());
+        productMapping.setOrganizationId(productMappingModel.getOrganizationId());
         return productMapping;
     }
 
@@ -35,13 +37,20 @@ public class ProductMappingConverter {
         return productMappingModel;
     }
 
-    public static List<ProductMappingModel> toModelList(List<ProductMapping> productMappings) {
+    public static List<ProductMappingModel> toModel(List<ProductMapping> productMappings) {
         List<ProductMappingModel> productMappingModels = new ArrayList<>();
         for (ProductMapping productMapping : productMappings) {
             productMappingModels.add(toModel(productMapping));
         }
-
         return productMappingModels;
+    }
+
+    public static List<ProductMapping> toEntity(List<ProductMappingModel> productMappingModels) {
+        List<ProductMapping> productMappings = new ArrayList<>();
+        for (ProductMappingModel productMappingModel : productMappingModels) {
+            productMappings.add(toEntity(productMappingModel));
+        }
+        return productMappings;
     }
 
 }
